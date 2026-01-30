@@ -53,45 +53,47 @@ export function UpdateTransactionModal(
                     <Input type="number" id="transaction-new-value" value={selectedTransactionValue} onChange={e => setSelectedTransactionValue(parseFloat(e.target.value))} placeholder="insira o valor" />
                 </div>
 
-                <div>
-                    Tipo
-                    <Select
-                        value={selectedTransactionType}
-                        onValueChange={(value) => setSelectedTransactionType(value as TransactionTypeEnum)}>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Theme" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {Object.values(TransactionTypeEnum).map((type) => (
-                                <SelectItem key={type} value={type}>{type}</SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </div>
+                <section className="flex justify-between">
+                    <div className="w-[50%] mr-2">
+                        Tipo
+                        <Select
+                            value={selectedTransactionType}
+                            onValueChange={(value) => setSelectedTransactionType(value as TransactionTypeEnum)}>
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Tipo" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {Object.values(TransactionTypeEnum).map((type) => (
+                                    <SelectItem key={type} value={type}>{type}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
 
-                <div>
-                    Pessoa
-                    <Select
-                        value={selectedTransactionPerson?.toString()}
-                        onValueChange={(value) => setSelectedTransactionPerson(parseInt(value))}>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Theme" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {[].map((item, index) => (
-                                <SelectItem key={index} value={index.toString()}>{item}</SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </div>
+                    <div className="w-[50%] ml-2">
+                        Pessoa
+                        <Select
+                            value={selectedTransactionPerson?.toString()}
+                            onValueChange={(value) => setSelectedTransactionPerson(parseInt(value))}>
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Pessoa" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {[].map((item, index) => (
+                                    <SelectItem key={index} value={index.toString()}>{item}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </section>
 
-                <div>
+                <div className="w-full">
                     Categoria
                     <Select
                         value={selectedTransactionCategory?.toString()}
                         onValueChange={(value) => setSelectedTransactionCategory(parseInt(value))}>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Theme" />
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Categoria" />
                         </SelectTrigger>
                         <SelectContent>
                             {[].map((category, index) => (

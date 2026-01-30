@@ -1,6 +1,6 @@
 import { title } from "process";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar";
-import { ChartBarStacked, CircleUser, Icon, Wallet } from "lucide-react";
+import { ChartBarStacked, CircleUser, Icon, SquareStack, UserRoundSearch, Wallet } from "lucide-react";
 
 export function AppSidebar() {
     const items = [
@@ -18,6 +18,17 @@ export function AppSidebar() {
             title: 'Transações',
             url: 'transactions',
             icon: Wallet
+        },
+        {
+            title: 'Transações por pessoa',
+            url: 'totalPerPerson',
+            icon: UserRoundSearch
+        },
+
+        {
+            title: 'Transações por categoria',
+            url: 'totalPerCategory',
+            icon: SquareStack
         },
 
     ]

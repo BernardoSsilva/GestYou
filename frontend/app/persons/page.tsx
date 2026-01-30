@@ -55,7 +55,7 @@ export default function PersonsScreen() {
                 setIsDialogOpen={(value) => setIsDialogOpen(value)} />
 
             <header>
-                <h1 className="font-bold text-4xl w-full mb-2">
+                <h1 className="font-bold text-4xl w-full mb-2 border-b-2  border-b-gray-200 ">
                     Cadastro de Pessoas
                 </h1>
 

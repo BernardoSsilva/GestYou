@@ -8,6 +8,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Plus, Trash } from "lucide-react";
 import { useState } from "react";
 import { UpdateTransactionModal } from "./updateTransactionModal";
+import { TransactionWithNames } from "@/models/TransactionWithNames";
 
 export default function TransactionScreen() {
 
@@ -15,7 +16,7 @@ export default function TransactionScreen() {
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const columns: ColumnDef<Transaction>[] = [
+    const columns: ColumnDef<TransactionWithNames>[] = [
         {
             accessorKey: "Id",
             header: "id",
@@ -33,11 +34,11 @@ export default function TransactionScreen() {
             header: "Tipo",
         },
         {
-            accessorKey: "CategoryId",
+            accessorKey: "CategoryName",
             header: "Categoria",
         },
         {
-            accessorKey: "PersonId",
+            accessorKey: "PersonName",
             header: "Pessoa",
         },
         {
@@ -68,7 +69,7 @@ export default function TransactionScreen() {
                 setIsDialogOpen={(value) => setIsDialogOpen(value)} />
 
             <header>
-                <h1 className="font-bold text-4xl w-full mb-2">
+                <h1 className="font-bold text-4xl w-full mb-2   border-b-2  border-b-gray-200">
                     Cadastro de Transações
                 </h1>
 
@@ -84,7 +85,7 @@ export default function TransactionScreen() {
                 </Button>
             </section>
             <DataTable columns={columns} data={[
-                { Id: 1, CategoryId: 1, Description: "teste descrição muito baluda", PersonId: 1, Type: TransactionTypeEnum.expense, Value: 2590.00 }
+                { Id: 1, CategoryId: 1, Description: "teste descrição muito baluda", PersonName: 'teste', PersonId: 1, CategoryName: 'teste', Type: TransactionTypeEnum.expense, Value: 2590.00 }
             ]} />
 
         </main>

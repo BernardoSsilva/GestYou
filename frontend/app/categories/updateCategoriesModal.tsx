@@ -47,7 +47,7 @@ export function UpdateCategoriesModal(
                         value={selectedCategoryFinality}
                         onValueChange={(value) => setSelectedCategoryFinality(value as FinalityEnum)}>
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Theme" />
+                            <SelectValue placeholder="FInalidade" />
                         </SelectTrigger>
                         <SelectContent>
                             {Object.values(FinalityEnum).map((finality) => (
