@@ -12,6 +12,9 @@ namespace domain.entities
         public float Value { get; set; }
         public TransactionTypeEnum Type { get; set; } = TransactionTypeEnum.Revenue;
 
+        public int PersonId { get; set; }
+
+        public int CategoryId { get; set; }
         public CategoryEntity Category { get; set; }
         public PersonEntity Person { get; set; }
     }

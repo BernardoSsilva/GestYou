@@ -1,3 +1,7 @@
 <Solution>
+  <Project Path="application/application.csproj" />
+  <Project Path="comunication/comunication.csproj" />
+  <Project Path="domain/domain.csproj" />
+  <Project Path="infra/infra.csproj" />
   <Project Path="web-api/web-api.csproj" />
 </Solution>

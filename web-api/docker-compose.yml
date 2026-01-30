@@ -1,0 +1,17 @@
+
+services:
+  db:
+    build: .
+    container_name: GestYouDb
+    image: postgres:latest
+    volumes:
+      - GestYouDb:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=GestYouDb
+    ports:
+      - '5438:5432'
+
+volumes:
+  GestYouDb:
