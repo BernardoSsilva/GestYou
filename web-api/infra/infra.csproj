@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.5.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.2">
       <PrivateAssets>all</PrivateAssets>
@@ -21,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\comunication\comunication.csproj" />
     <ProjectReference Include="..\domain\domain.csproj" />
   </ItemGroup>
 

@@ -11,8 +11,8 @@ using infra;
 namespace infra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260130181723_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260202142219_firstMigration")]
+    partial class firstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

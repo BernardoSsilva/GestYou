@@ -1,6 +1,6 @@
 ﻿using domain.entities;
 using domain.Repository;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace infra.Repositories
 {
@@ -14,7 +14,7 @@ namespace infra.Repositories
         }
         public async Task CreatePerson(PersonEntity data)
         {
-            _dbContext.Persons.Add(data);
+           await _dbContext.Persons.AddAsync(data);
             await _dbContext.SaveChangesAsync();
         }
 
@@ -27,12 +27,24 @@ namespace infra.Repositories
 
         public async Task<List<PersonEntity>> GetAllPersons()
         {
-            return await _dbContext.Persons.ToListAsync();
+            return await _dbContext.Persons.AsNoTracking().ToListAsync(); ;
         }
 
-        public async Task UpdatePerson(PersonEntity data)
+        public async Task<PersonEntity?> GetPersonById(int id)
         {
-            _dbContext.Persons.Update(data);
+            return await _dbContext.Persons
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+
+        public async Task UpdatePerson(int PersonId, PersonEntity data)
+        {
+            var person = await _dbContext.Persons.FindAsync(PersonId);
+
+            if (person is null) return;
+            person.Name = data.Name;
+            person.Age = data.Age;
+            
             await _dbContext.SaveChangesAsync();
         }
     }

@@ -10,7 +10,8 @@ namespace domain.Repository
         Task CreatePerson(PersonEntity data);
         Task<List<PersonEntity>> GetAllPersons();
 
-        Task UpdatePerson(PersonEntity data);
+        Task<PersonEntity?> GetPersonById(int id);
+        Task UpdatePerson(int PersonId, PersonEntity data);
         Task DeletePerson(PersonEntity data);
     }
 }
