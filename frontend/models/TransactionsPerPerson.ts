@@ -1,7 +1,7 @@
 export interface TransactionsPerPerson {
-    PersonId: number,
-    PersonName: string
-    TotalRevenues: number,
-    TotalExpenses: number,
-    Balance: number
+    personId: number,
+    personName: string
+    totalRevenues: number,
+    totalExpenses: number,
+    balance: number
 }

@@ -9,11 +9,12 @@ namespace application.UseCases.Categories
 
         private readonly ICategoryRepository _repository;
         private readonly IMapper _mapper;
-
-        public DeleteCategoryUseCase(ICategoryRepository repository, IMapper mapper)
+        private readonly ITransactionsRepository _transactionsRepository;
+        public DeleteCategoryUseCase(ICategoryRepository repository, IMapper mapper , ITransactionsRepository transactionsRepository)
         {
             _repository = repository;
             _mapper = mapper;
+            _transactionsRepository = transactionsRepository;
         }
 
         public async Task Execute(int id)
@@ -27,6 +28,13 @@ namespace application.UseCases.Categories
                 if (category is null)
                 {
                     throw new KeyNotFoundException();
+                }
+
+                var transactionsByCategory = (await _transactionsRepository.GetAllTransactions()).Where(t => t.CategoryId == id);
+
+                foreach (var transaction in transactionsByCategory)
+                {
+                    await _transactionsRepository.DeleteTransaction(transaction);
                 }
 
                 await _repository.DeleteCategory(category);

@@ -40,7 +40,9 @@ export function AppSidebar() {
             <SidebarContent>
                 <SidebarGroup>
                     <SidebarGroupLabel>
-                        GestYou
+                        <h1>
+                            GestYou
+                        </h1>
                     </SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>

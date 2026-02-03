@@ -9,6 +9,8 @@ import { Pencil, Plus, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { UpdateCategoriesModal } from "./updateCategoriesModal";
 import { FinalityEnum, FinalityLabels } from "@/models/FinalityEnum";
+import { DeleteConfirmationDialog } from "@/components/deleteConfirmationDialog";
+import { toast } from "sonner";
 
 export default function CategoriesScreen() {
 
@@ -16,17 +18,32 @@ export default function CategoriesScreen() {
 
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     var fetchData = async () => {
         var { data } = await api.get("/Category")
 
-        console.log(data)
         setCategoriesData(data)
     }
+
+    var onConfirmDelete = async () => {
+        try {
+
+            await api.delete(`/Category/${selectedCategory?.id}`)
+            fetchData()
+            toast.success("Item excluído com sucesso")
+        } catch {
+            toast.error("Erro ao realizar a exclusão")
+        }
+        setIsDeleteDialogOpen(false)
+
+    }
+
     useEffect(() => {
         fetchData()
     }, [isDialogOpen])
+
 
     const columns: ColumnDef<Category>[] = [
         {
@@ -44,12 +61,9 @@ export default function CategoriesScreen() {
                 const category = row.original
 
                 return (
-                    <div>
-                        <p>
-
-                            {FinalityLabels[category.finality as keyof typeof FinalityEnum]}
-                        </p>
-                    </div>
+                    <p>
+                        {FinalityLabels[category.finality as keyof typeof FinalityEnum]}
+                    </p>
                 )
             }
         },
@@ -66,7 +80,10 @@ export default function CategoriesScreen() {
                         }}>
                             <Pencil color="#f1a800" />
                         </Button>
-                        <Button variant='outline' className="border-[#ff1c1c]">
+                        <Button variant='outline' className="border-[#ff1c1c]" onClick={() => {
+                            setSelectedCategory(category)
+                            setIsDeleteDialogOpen(true);
+                        }}>
                             <Trash color="#ff1c1c" />
                         </Button>
                     </div>
@@ -76,6 +93,7 @@ export default function CategoriesScreen() {
     ]
     return (
         <main className="w-full h-full flex flex-col">
+            <DeleteConfirmationDialog isOpen={isDeleteDialogOpen} onConfirmDelete={onConfirmDelete} setIsDialogOpen={(value) => setIsDeleteDialogOpen(value)} />
             <UpdateCategoriesModal selectedCategory={selectedCategory}
                 isOpen={isDialogOpen}
                 setIsDialogOpen={(value) => setIsDialogOpen(value)} />
@@ -97,7 +115,7 @@ export default function CategoriesScreen() {
                 </Button>
             </section>
             <DataTable columns={columns} data={
-                categoriesData
+                categoriesData.sort((a, b) => { return a.id - b.id })
             } />
 
         </main>

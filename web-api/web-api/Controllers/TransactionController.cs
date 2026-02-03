@@ -17,14 +17,14 @@ namespace web_api.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/byCategory")]
+        [HttpGet("byCategory")]
         public async Task<IActionResult> GetTransactionsByCategory([FromServices] IGetTransactionsByCategory useCase)
         {
             var result = await useCase.Execute();
             return Ok(result);
         }
 
-        [HttpGet("/byPerson")]
+        [HttpGet("byPerson")]
         public async Task<IActionResult> GetTransactionsByPerson([FromServices] IGetTransactionsByPerson useCase) {
             var result = await useCase.Execute();
 

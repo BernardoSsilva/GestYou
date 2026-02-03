@@ -12,11 +12,12 @@ namespace application.UseCases.Persons
 
         private readonly IPersonRepository _repository;
         private readonly IMapper _mapper;
-
-        public DeletePersonUseCase(IPersonRepository repository, IMapper mapper)
+        private readonly ITransactionsRepository _transactionsRepository;
+        public DeletePersonUseCase(IPersonRepository repository, IMapper mapper, ITransactionsRepository transactionsRepository)
         {
             _repository = repository;
             _mapper = mapper;
+            _transactionsRepository = transactionsRepository;
         }
 
         public async Task Execute(int id)
@@ -24,12 +25,18 @@ namespace application.UseCases.Persons
 
             try
             {
-
                 var person = await _repository.GetPersonById(id);
 
                 if (person is null)
                 {
                     throw new KeyNotFoundException();
+                }
+
+                var transactionsByPerson = (await _transactionsRepository.GetAllTransactions()).Where(t => t.PersonId == id);
+
+                foreach(var transaction in transactionsByPerson)
+                {
+                    await _transactionsRepository.DeleteTransaction(transaction);
                 }
 
                 await _repository.DeletePerson(person);

@@ -17,8 +17,8 @@ import {
 import { Category } from "@/models/Category";
 import { FinalityEnum, FinalityLabels } from "@/models/FinalityEnum";
 import { api } from "@/services/api";
-import { Key } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 type FinalityKey = keyof typeof FinalityEnum;
 
@@ -64,11 +64,20 @@ export function UpdateCategoriesModal({
             description: selectedCategoryDescription,
             finality: finalityValue
         };
+        try {
 
-        if (selectedCategory) {
-            await api.put(`Category/${selectedCategory.id}`, payload);
-        } else {
-            await api.post("Category", payload);
+            if (selectedCategory) {
+                await api.put(`Category/${selectedCategory.id}`, payload);
+                toast.success("Categoria alterada com sucesso")
+
+            } else {
+                await api.post("Category", payload);
+                toast.success("Categoria criada com sucesso")
+
+            }
+        } catch {
+            toast.error("Erro ao salvar categoria")
+
         }
 
         setIsDialogOpen(false);
@@ -87,6 +96,7 @@ export function UpdateCategoriesModal({
                         value={selectedCategoryDescription}
                         onChange={e => setSelectedCategoryDescription(e.target.value)}
                         placeholder="Insira a descrição"
+                        required
                     />
                 </div>
 
@@ -118,7 +128,7 @@ export function UpdateCategoriesModal({
                 </div>
 
                 <DialogFooter>
-                    <Button className="bg-emerald-600" onClick={saveData}>
+                    <Button className="bg-emerald-600" onClick={saveData} disabled={selectedCategoryFinality == undefined || selectedCategoryDescription.length <= 0}>
                         Salvar
                     </Button>
                     <Button

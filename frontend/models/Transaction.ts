@@ -1,10 +1,10 @@
 import { TransactionTypeEnum } from "./TransactionTypeEnum"
 
 export interface Transaction {
-    Id: number
-    Description: string
-    Value: number
-    Type: TransactionTypeEnum
-    CategoryId: number
-    PersonId: number
+    id: number
+    description: string
+    value: number
+    type: keyof typeof TransactionTypeEnum
+    categoryId: number
+    personId: number
 }

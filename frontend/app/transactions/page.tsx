@@ -3,58 +3,109 @@
 import { DataTable } from "@/components/datatable";
 import { Button } from "@/components/ui/button";
 import { Transaction } from "@/models/Transaction";
-import { TransactionTypeEnum } from "@/models/TransactionTypeEnum";
+import { TransactionTypeEnum, TypeLabels } from "@/models/TransactionTypeEnum";
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Plus, Trash } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UpdateTransactionModal } from "./updateTransactionModal";
 import { TransactionWithNames } from "@/models/TransactionWithNames";
+import { api } from "@/services/api";
+import { DeleteConfirmationDialog } from "@/components/deleteConfirmationDialog";
+import { toast } from "sonner";
 
 export default function TransactionScreen() {
 
-    const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
+    const [selectedTransaction, setSelectedTransaction] = useState<TransactionWithNames | null>(null);
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+
+    const [transactionsData, setTransactionsData] = useState<TransactionWithNames[]>([])
+
+    const fetchData = async () => {
+        const { data } = await api.get("Transaction")
+
+        setTransactionsData(data);
+    }
+
+    var onConfirmDelete = async () => {
+        try {
+            await api.delete(`/Transaction/${selectedTransaction?.id}`)
+            fetchData()
+            toast.success("Item excluído com sucesso")
+        } catch {
+            toast.error("Erro ao realizar a exclusão")
+        }
+        setIsDeleteDialogOpen(false)
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [isDialogOpen])
 
     const columns: ColumnDef<TransactionWithNames>[] = [
         {
-            accessorKey: "Id",
+            accessorKey: "id",
             header: "id",
         },
         {
-            accessorKey: "Description",
+            accessorKey: "description",
             header: "descrição",
         },
         {
-            accessorKey: "Value",
+            accessorKey: "value",
             header: "Valor",
+            cell: ({ row }) => {
+                const { value } = row.original
+
+                const formattedValue = new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                }).format(value)
+
+                return (
+                    <p>
+                        {formattedValue}
+                    </p>
+                )
+            }
         },
         {
-            accessorKey: "Type",
+            accessorKey: "type",
             header: "Tipo",
+            cell: ({ row }) => {
+
+                const transaction = row.original
+                return <p>{TypeLabels[transaction.type as unknown as keyof typeof TransactionTypeEnum]}</p>
+            }
         },
         {
-            accessorKey: "CategoryName",
+            accessorKey: "categoryName",
             header: "Categoria",
         },
         {
-            accessorKey: "PersonName",
+            accessorKey: "personName",
             header: "Pessoa",
         },
         {
             id: "actions",
             cell: ({ row }) => {
-                const transaction = row.original
+                const transactionWithName = row.original
 
                 return (
                     <div className="flex justify-end gap-2">
                         <Button variant='outline' className="border-[#f1a800]" onClick={() => {
-                            setSelectedTransaction(transaction)
+                            setSelectedTransaction(transactionWithName)
                             setIsDialogOpen(true)
                         }}>
                             <Pencil color="#f1a800" />
                         </Button>
-                        <Button variant='outline' className="border-[#ff1c1c]">
+                        <Button variant='outline' className="border-[#ff1c1c]" onClick={
+                            () => {
+                                setSelectedTransaction(transactionWithName)
+                                setIsDeleteDialogOpen(true);
+                            }
+                        }>
                             <Trash color="#ff1c1c" />
                         </Button>
                     </div>
@@ -64,6 +115,7 @@ export default function TransactionScreen() {
     ]
     return (
         <main className="w-full h-full flex flex-col">
+            <DeleteConfirmationDialog isOpen={isDeleteDialogOpen} onConfirmDelete={onConfirmDelete} setIsDialogOpen={(value) => setIsDeleteDialogOpen(value)} />
             <UpdateTransactionModal selectedTransaction={selectedTransaction}
                 isOpen={isDialogOpen}
                 setIsDialogOpen={(value) => setIsDialogOpen(value)} />
@@ -84,9 +136,7 @@ export default function TransactionScreen() {
                     Nova Transação
                 </Button>
             </section>
-            <DataTable columns={columns} data={[
-                { Id: 1, CategoryId: 1, Description: "teste descrição muito baluda", PersonName: 'teste', PersonId: 1, CategoryName: 'teste', Type: TransactionTypeEnum.expense, Value: 2590.00 }
-            ]} />
+            <DataTable columns={columns} data={transactionsData} />
 
         </main>
     )
