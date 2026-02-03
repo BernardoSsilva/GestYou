@@ -1,7 +1,7 @@
 import { FinalityEnum } from "./FinalityEnum";
 
 export interface Category {
-    Id: number,
-    Description: string,
-    Finality: FinalityEnum
+    id: number,
+    description: string,
+    finality: keyof typeof FinalityEnum
 }

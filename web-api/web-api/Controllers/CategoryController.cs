@@ -6,7 +6,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace web_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {

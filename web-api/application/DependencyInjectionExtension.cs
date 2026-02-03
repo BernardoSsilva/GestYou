@@ -2,6 +2,8 @@
 using application.UseCases.Categories.Interfaces;
 using application.UseCases.Persons;
 using application.UseCases.Persons.Interfaces;
+using application.UseCases.Transactions;
+using application.UseCases.Transactions.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace application
@@ -28,6 +30,13 @@ namespace application
             service.AddScoped<IDeletePerson, DeletePersonUseCase>();
             service.AddScoped<IListPersons, ListPersonsUseCase>();
             service.AddScoped<IUpdatePerson, UpdatePersonUseCase>();
+
+            service.AddScoped<ICreateTransaction, CreateTransactionUseCase>();
+            service.AddScoped<IDeleteTransaction, DeleteTransactionUseCase>();
+            service.AddScoped<IListTransactions, ListTransactionsUseCase>();
+            service.AddScoped<IUpdateTransaction, UpdateTransactionUseCase>();
+            service.AddScoped<IGetTransactionsByCategory, GetTransactionsByCategory>();
+            service.AddScoped<IGetTransactionsByPerson, GetTransactionsByPerson>();
 
             service.AddScoped<ICreateCategory, CreateCategoryUseCase>();
             service.AddScoped<IDeleteCategory, DeleteCategoryUseCase>();

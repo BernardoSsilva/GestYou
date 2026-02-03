@@ -10,6 +10,8 @@ namespace domain.Repository
         Task CreateTransaction(TransactionEntity transaction);
         Task DeleteTransaction(TransactionEntity transaction);
         Task<List<TransactionEntity>> GetAllTransactions();
-        Task UpdateTransaction(TransactionEntity transaction);
+        Task UpdateTransaction(int transactionId, TransactionEntity transaction);
+
+        Task<TransactionEntity?> GetTransactionById(int id);
     }
 }

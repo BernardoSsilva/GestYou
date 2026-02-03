@@ -32,7 +32,7 @@ export function DataTable<TData, TValue>({
     })
 
     return (
-        <div className="flex-1 overflow-hidden w-full rounded-md border">
+        <div className="flex-1 overflow-y-scroll w-full rounded-md border">
             <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (

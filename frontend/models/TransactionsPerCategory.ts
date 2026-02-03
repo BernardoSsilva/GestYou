@@ -1,6 +1,6 @@
 export interface TransactionsPerCategory {
     CategoryId: number,
-    CategoryName: string
+    CategoryDescription: string
     TotalRevenues: number,
     TotalExpenses: number,
 }

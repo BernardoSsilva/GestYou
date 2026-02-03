@@ -6,8 +6,8 @@ namespace domain.Enums
 {
     public enum CategoryFinalityEnum
     {
-        Expense = 0,
-        Revenue = 1,
-        Both = 2,
+        Expense ,
+        Revenue ,
+        Both ,
     }
 }

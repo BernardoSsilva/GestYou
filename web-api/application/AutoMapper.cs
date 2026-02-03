@@ -20,12 +20,16 @@ namespace application
         {
             CreateMap<PersonDto, PersonEntity>();
             CreateMap<CategoryDto, CategoryEntity>();
+            CreateMap<TransactionDto, TransactionEntity>();
+
         }
 
         private void EntityToResonse()
         {
             CreateMap<PersonEntity, PersonJsonResponse>();
             CreateMap<CategoryEntity, CategoryJsonResponse>();
+            CreateMap<TransactionEntity, TransactionJsonResponse>();
+
         }
     }
 }

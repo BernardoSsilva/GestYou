@@ -3,30 +3,55 @@
 import { DataTable } from "@/components/datatable";
 import { Button } from "@/components/ui/button";
 import { Category } from "@/models/Category";
+import { api } from "@/services/api";
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Plus, Trash } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UpdateCategoriesModal } from "./updateCategoriesModal";
-import { FinalityEnum } from "@/models/FinalityEnum";
+import { FinalityEnum, FinalityLabels } from "@/models/FinalityEnum";
 
 export default function CategoriesScreen() {
+
+    const [categoriesData, setCategoriesData] = useState<Category[]>([]);
 
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+    var fetchData = async () => {
+        var { data } = await api.get("/Category")
+
+        console.log(data)
+        setCategoriesData(data)
+    }
+    useEffect(() => {
+        fetchData()
+    }, [isDialogOpen])
+
     const columns: ColumnDef<Category>[] = [
         {
-            accessorKey: "Id",
+            accessorKey: "id",
             header: "id",
         },
         {
-            accessorKey: "Description",
+            accessorKey: "description",
             header: "Descrição",
         },
         {
-            accessorKey: "Finality",
+            accessorKey: "finality",
             header: "Finalidade",
+            cell: ({ row }) => {
+                const category = row.original
+
+                return (
+                    <div>
+                        <p>
+
+                            {FinalityLabels[category.finality as keyof typeof FinalityEnum]}
+                        </p>
+                    </div>
+                )
+            }
         },
         {
             id: "actions",
@@ -71,11 +96,9 @@ export default function CategoriesScreen() {
                     Nova Categoria
                 </Button>
             </section>
-            <DataTable columns={columns} data={[
-                { Id: 1, Description: 'teste da melhor descrição', Finality: FinalityEnum.expense },
-                { Id: 2, Description: 'teste da melhor descrição2 ', Finality: FinalityEnum.revenue }
-
-            ]} />
+            <DataTable columns={columns} data={
+                categoriesData
+            } />
 
         </main>
     )

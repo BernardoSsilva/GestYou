@@ -6,7 +6,7 @@ namespace domain.Enums
 {
     public enum TransactionTypeEnum
     {
-        Expense = 0,
-        Revenue = 1
+        Expense,
+        Revenue 
     }
 }

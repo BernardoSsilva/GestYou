@@ -25,9 +25,9 @@ public class TransactionRepository : ITransactionsRepository
             .ToListAsync();
     }
 
-    public async Task UpdateTransaction(TransactionEntity transaction)
+    public async Task UpdateTransaction(int transactionId, TransactionEntity transaction)
     {
-        var existing = await _dbContext.Transactions.FindAsync(transaction.Id);
+        var existing = await _dbContext.Transactions.FindAsync(transactionId);
         if (existing == null) return;
 
         existing.Description = transaction.Description;
@@ -44,5 +44,10 @@ public class TransactionRepository : ITransactionsRepository
 
         _dbContext.Transactions.Remove(data);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<TransactionEntity?> GetTransactionById(int id)
+    {
+        return await _dbContext.Transactions.FindAsync(id);
     }
 }

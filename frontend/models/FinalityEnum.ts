@@ -1,5 +1,11 @@
 export enum FinalityEnum {
-    expense = "Despesa",
-    revenue = "Receita",
-    both = "Ambos"
+    Expense = 0,
+    Revenue = 1,
+    Both = 2
 }
+
+export const FinalityLabels: Record<keyof typeof FinalityEnum, string> = {
+    Expense: "Despesa",
+    Revenue: "Receita",
+    Both: "Ambos"
+};

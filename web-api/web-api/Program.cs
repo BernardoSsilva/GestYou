@@ -1,6 +1,7 @@
+using application;
 using infra;
 using Microsoft.EntityFrameworkCore;
-using application;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,12 +10,21 @@ var connectionString = builder.Configuration.GetConnectionString("Development");
 
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
-builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
 
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(
+            new JsonStringEnumConverter()
+        );
+    }); 
+
+builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString)
 );
+
+
 
 var app = builder.Build();
 
@@ -33,8 +43,8 @@ if (app.Environment.IsDevelopment())
 
 }
 
-app.UseHttpsRedirection();
 
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseAuthorization();
 
 app.MapControllers();

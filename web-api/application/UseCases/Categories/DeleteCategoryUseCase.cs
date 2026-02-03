@@ -22,14 +22,14 @@ namespace application.UseCases.Categories
             try
             {
 
-                var person = await _repository.GetCategoryById(id);
+                var category = await _repository.GetCategoryById(id);
 
-                if (person is null)
+                if (category is null)
                 {
                     throw new KeyNotFoundException();
                 }
 
-                await _repository.DeleteCategory(person);
+                await _repository.DeleteCategory(category);
             }
             catch (Exception ex)
             {
