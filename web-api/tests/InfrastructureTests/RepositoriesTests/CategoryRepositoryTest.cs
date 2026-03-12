@@ -38,9 +38,10 @@ namespace tests.InfrastructureTests.RepositoriesTests
         }
 
         [Fact]
-        public async Task DeleteCategoryTest() {
+        public async Task DeleteCategoryTest()
+        {
             var context = GetDbContext();
-            CategoryEntity newEntity = new CategoryEntity("Description test",CategoryFinalityEnum.Both);
+            CategoryEntity newEntity = new CategoryEntity("Description test", CategoryFinalityEnum.Both);
             CategoryRepository repository = new CategoryRepository(context);
 
             await repository.CreateCategory(newEntity);
@@ -53,7 +54,8 @@ namespace tests.InfrastructureTests.RepositoriesTests
         }
 
         [Fact]
-        public async Task UpdateCategoryTest() {
+        public async Task UpdateCategoryTest()
+        {
             var context = GetDbContext();
 
             CategoryEntity newEntity = new CategoryEntity("Description test", CategoryFinalityEnum.Both);
@@ -84,7 +86,8 @@ namespace tests.InfrastructureTests.RepositoriesTests
 
             CategoryRepository repository = new CategoryRepository(context);
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10; i++)
+            {
                 CategoryEntity newEntity = new CategoryEntity($"Description test {i}", CategoryFinalityEnum.Both);
 
                 await repository.CreateCategory(newEntity);
@@ -101,8 +104,8 @@ namespace tests.InfrastructureTests.RepositoriesTests
         {
             var context = GetDbContext();
             CategoryRepository repository = new CategoryRepository(context);
-                CategoryEntity newEntity = new CategoryEntity("Description test", CategoryFinalityEnum.Both);
-                await repository.CreateCategory(newEntity);
+            CategoryEntity newEntity = new CategoryEntity("Description test", CategoryFinalityEnum.Both);
+            await repository.CreateCategory(newEntity);
 
 
             var result = await repository.GetCategoryById(1);
