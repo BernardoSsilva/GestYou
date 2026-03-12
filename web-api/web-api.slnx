@@ -3,5 +3,6 @@
   <Project Path="comunication/comunication.csproj" />
   <Project Path="domain/domain.csproj" />
   <Project Path="infra/infra.csproj" />
+  <Project Path="tests/tests.csproj" Id="c153c81b-4986-47f9-9ae0-9feb1a0a3ddd" />
   <Project Path="web-api/web-api.csproj" />
 </Solution>

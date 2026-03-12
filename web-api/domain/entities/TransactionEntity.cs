@@ -9,6 +9,19 @@ namespace domain.entities
 {
     public class TransactionEntity
     {
+        protected TransactionEntity()
+        {}
+        public TransactionEntity(string description, float value, TransactionTypeEnum type, int personId, int categoryId)
+        {
+            Description = description;
+            Value = value;
+            Type = type;
+            PersonId = personId;
+            CategoryId = categoryId;
+        }
+
+        
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
         public string Description { get; set; } = string.Empty;
