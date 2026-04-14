@@ -29,10 +29,10 @@ cd GestYou
 ------------------------------------------------------------------------
 ## 🐳 Execução com Docker (Recomendado)
 
-Com o Docker em execução, utilize o Docker Compose para subir o container do bancod de dados:
+Com o Docker em execução, utilize o Docker Compose para subir o container do banco de dados:
 
 ``` bash
-docker compose up --build
+docker compose -f database-compose.yml up 
 ```
 
 ### 2️⃣ Backend --- API (.NET)
