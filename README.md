@@ -1,58 +1,139 @@
-# GestYou — Sistema de Gestão Financeira em Grupo
+# 💰 GestYou — Financial Management System
 
-O **GestYou** é uma aplicação **full stack** desenvolvida para auxiliar na **organização financeira em grupo**, permitindo o controle de **receitas e despesas** de forma simples.
+## 📌 Sobre o Projeto
 
-O projeto é dividido em **frontend** e **backend**, seguindo boas práticas de separação de responsabilidades, facilitando manutenção, escalabilidade e evolução futura.
+O **GestYou** é uma aplicação **full stack** desenvolvida como parte de um **desafio técnico proposto pela empresa Maxiprod**.
+
+O objetivo foi construir um sistema para **organização financeira**, permitindo o controle de **entradas e saídas**, categorização e gerenciamento de usuários envolvidos.
+
+A solução foi projetada com foco em **boas práticas de arquitetura**, separação de responsabilidades e escalabilidade.
 
 ---
 
-## Funcionalidades
+## 🎯 Objetivo do Desafio
 
--  Registro e gerenciamento de **receitas e despesas**
--  Registro e gerenciamento de **Pessoas**
--  Registro e gerenciamento de **Categorias**
--  Comunicação via **API REST**
+Desenvolver uma aplicação capaz de:
+
+* Gerenciar **receitas e despesas**
+* Organizar dados financeiros de forma estruturada
+* Garantir uma base sólida para evolução futura
+
 ---
 
-## Tecnologias Utilizadas
-<img src="https://skillicons.dev/icons?i=cs,dotnet,postgresql,ts,nodejs,react,nextjs" />
+## 🧠 Arquitetura
 
-## 🧩 Instalação e Execução
+O backend foi desenvolvido utilizando **Domain-Driven Design (DDD)**, garantindo:
 
-### 1️⃣ Clonar o Repositório
+* Separação clara de responsabilidades
+* Código mais organizado e testável
+* Facilidade de manutenção e evolução
 
-``` bash
+### 🔹 Camadas da aplicação:
+
+* **Domain** → Regras de negócio e entidades
+* **Application** → Casos de uso
+* **Infrastructure** → Persistência e integrações
+* **API** → Exposição dos endpoints REST
+
+---
+
+## ⚙️ Tecnologias Utilizadas
+
+### Backend
+
+* .NET
+* PostgreSQL
+* Arquitetura DDD
+* Testes unitários
+
+### Frontend
+
+* Next.js
+* React
+* shadCN UI
+
+---
+
+## 🚀 Funcionalidades
+
+* 📥 Registro de **receitas**
+* 📤 Registro de **despesas**
+* 👤 Gerenciamento de **pessoas**
+* 🗂️ Gerenciamento de **categorias**
+* 🔗 Integração completa via **API REST**
+
+---
+
+## 🧪 Testes
+
+O backend possui **testes unitários**, garantindo:
+
+* Maior confiabilidade das regras de negócio
+* Facilidade de manutenção
+* Segurança em futuras alterações
+
+---
+
+## 🐳 Execução do Projeto
+
+### 🔹 Clonar repositório
+
+```bash
 git clone https://github.com/BernardoSsilva/GestYou.git
 cd GestYou
 ```
 
-------------------------------------------------------------------------
-## 🐳 Execução com Docker (Recomendado)
+---
 
-Com o Docker em execução, utilize o Docker Compose para subir o container do banco de dados:
+### 🔹 Subir banco com Docker
 
-``` bash
-docker compose -f database-compose.yml up 
+```bash
+docker compose -f database-compose.yml up
 ```
 
-### 2️⃣ Backend --- API (.NET)
+---
 
-``` bash
+### 🔹 Backend (.NET)
+
+```bash
 cd web-api
 dotnet restore
 dotnet build
 dotnet run
 ```
 
-------------------------------------------------------------------------
+---
 
-### 3️⃣ Frontend --- Aplicação Web
+### 🔹 Frontend (Next.js)
 
-``` bash
+```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-📌 A aplicação ficará disponível normalmente em:\
-`http://localhost:3000`
+📌 A aplicação estará disponível em:
+http://localhost:3000
+
+---
+
+## 📈 Possíveis Melhorias
+
+* Autenticação e autorização de usuários
+* Deploy em ambiente cloud
+* Testes de integração
+* Dashboard com visualização de dados financeiros
+* Suporte a múltiplos grupos/contas
+
+---
+
+## 💬 Considerações Finais
+
+Este projeto demonstra:
+
+* Capacidade de desenvolver aplicações **full stack**
+* Aplicação de **boas práticas de arquitetura (DDD)**
+* Escrita de código **testável e organizado**
+* Construção de soluções voltadas para problemas reais
+
+---
